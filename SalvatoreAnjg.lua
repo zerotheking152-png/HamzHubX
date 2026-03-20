@@ -4,13 +4,13 @@ local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 local player = Players.LocalPlayer
 
-local throwRemote = ReplicatedStorage:FindFirstChild("Fishing_RemoteThrow")
-local fishingFolder = ReplicatedStorage:FindFirstChild("Fishing")
-local toServer = fishingFolder and fishingFolder:FindFirstChild("ToServer")
-local minigameStarted = toServer and toServer:FindFirstChild("MinigameStarted")
-local reelFinished = toServer and toServer:FindFirstChild("ReelFinished")
+local throwRemote = ReplicatedStorage:WaitForChild("Fishing_RemoteThrow")
+local fishingFolder = ReplicatedStorage:WaitForChild("Fishing")
+local toServer = fishingFolder:WaitForChild("ToServer")
+local minigameStarted = toServer:WaitForChild("MinigameStarted")
+local reelFinished = toServer:WaitForChild("ReelFinished")
 
-local sellRemote = ReplicatedStorage:FindFirstChild("Economy") and ReplicatedStorage:FindFirstChild("Economy"):FindFirstChild("ToServer") and ReplicatedStorage:FindFirstChild("Economy"):FindFirstChild("ToServer"):FindFirstChild("SellUnder")
+local sellRemote = ReplicatedStorage:WaitForChild("Economy"):WaitForChild("ToServer"):WaitForChild("SellUnder")
 
 local sessionID = nil
 local oldNamecall
@@ -81,8 +81,8 @@ local function startBlati()
                 task.wait(0.00001)
                 local successArgs = {
                     duration = 2.2980389329604805,
-                    result = "PERFECT",
-                    insideRatio = 1
+                    result = "SUCCESS",
+                    insideRatio = 0.8
                 }
                 reelFinished:FireServer(successArgs, sessionID)
                 fishCaught = fishCaught + 1
@@ -109,8 +109,8 @@ MainTab:CreateToggle({
             local args = {
 	"bd4238ec-6bbc-4523-8c63-a17356e1f130"
 }
-game:GetService("ReplicatedStorage"):FindFirstChild("FishUI") and game:GetService("ReplicatedStorage"):FindFirstChild("FishUI"):FindFirstChild("ToServer") and game:GetService("ReplicatedStorage"):FindFirstChild("FishUI"):FindFirstChild("ToServer"):FindFirstChild("ToggleFavorite"):FireServer(unpack(args))
-            game:GetService("ReplicatedStorage"):FindFirstChild("BobberShop") and game:GetService("ReplicatedStorage"):FindFirstChild("BobberShop"):FindFirstChild("ToServer") and game:GetService("ReplicatedStorage"):FindFirstChild("BobberShop"):FindFirstChild("ToServer"):FindFirstChild("GetEquippedBobber"):InvokeServer()
+game:GetService("ReplicatedStorage"):WaitForChild("FishUI"):WaitForChild("ToServer"):WaitForChild("ToggleFavorite"):FireServer(unpack(args))
+            game:GetService("ReplicatedStorage"):WaitForChild("BobberShop"):WaitForChild("ToServer"):WaitForChild("GetEquippedBobber"):InvokeServer()
             local backpackTool = player.Backpack:FindFirstChildOfClass("Tool")
             if backpackTool then backpackTool.Parent = player.Character end
         else
@@ -161,7 +161,7 @@ MainTab:CreateToggle({
             local args = {
 	"bd4238ec-6bbc-4523-8c63-a17356e1f130"
 }
-game:GetService("ReplicatedStorage"):FindFirstChild("FishUI") and game:GetService("ReplicatedStorage"):FindFirstChild("FishUI"):FindFirstChild("ToServer") and game:GetService("ReplicatedStorage"):FindFirstChild("FishUI"):FindFirstChild("ToServer"):FindFirstChild("ToggleFavorite"):FireServer(unpack(args))
+game:GetService("ReplicatedStorage"):WaitForChild("FishUI"):WaitForChild("ToServer"):WaitForChild("ToggleFavorite"):FireServer(unpack(args))
             local backpackTool = player.Backpack:FindFirstChildOfClass("Tool")
             if backpackTool then backpackTool.Parent = player.Character end
         else

@@ -84,6 +84,7 @@ local function startBlati()
                     result = "SUCCESS",
                     insideRatio = 0.8
                 }
+                task.wait(successArgs.duration)
                 reelFinished:FireServer(successArgs, sessionID)
                 fishCaught = fishCaught + 1
                 if getgenv().AutoSell and getgenv().SellMode == "Count" and fishCaught >= getgenv().SellValue then
@@ -136,6 +137,7 @@ local function startForceSecret()
                     ["catchType"] = "SECRET",
                     ["isSecret"] = true
                 }
+                task.wait(successArgs.duration)
                 reelFinished:FireServer(successArgs, sessionID)
                 fishCaught = fishCaught + 1
                 if getgenv().AutoSell and getgenv().SellMode == "Count" and fishCaught >= getgenv().SellValue then

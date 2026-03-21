@@ -2,6 +2,7 @@ local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
+local HttpService = game:GetService("HttpService")
 local player = Players.LocalPlayer
 
 local throwRemote = ReplicatedStorage:WaitForChild("Fishing_RemoteThrow")
@@ -75,18 +76,19 @@ local function startBlati()
     blatiLoop = task.spawn(function()
         while getgenv().Blati do
             if humanoid then
-                sessionID = game:GetService("HttpService"):GenerateGUID(false)
-                throwRemote:FireServer(0.017203017487190664, sessionID)
+                local newSessionID = HttpService:GenerateGUID(false)
+                sessionID = newSessionID
+                throwRemote:FireServer(0.017203017487190664, newSessionID)
                 task.wait(0.00001)
-                minigameStarted:FireServer(sessionID)
-                local reelStart = tick()
-                task.wait(0.035)
+                minigameStarted:FireServer(newSessionID)
+                task.wait(0.00001)
                 local successArgs = {
-                    duration = tick() - reelStart,
+                    duration = 2.2980389329604805,
                     result = "SUCCESS",
                     insideRatio = 0.8
                 }
-                reelFinished:FireServer(successArgs, sessionID)
+                task.wait(successArgs.duration)
+                reelFinished:FireServer(successArgs, newSessionID)
                 fishCaught = fishCaught + 1
                 if getgenv().AutoSell and getgenv().SellMode == "Count" and fishCaught >= getgenv().SellValue then
                     if sellRemote then sellRemote:FireServer(800) end
@@ -127,20 +129,21 @@ local function startForceSecret()
     forceSecretLoop = task.spawn(function()
         while getgenv().ForceSecret do
             if humanoid then
-                sessionID = game:GetService("HttpService"):GenerateGUID(false)
-                throwRemote:FireServer(0, sessionID)
+                local newSessionID = HttpService:GenerateGUID(false)
+                sessionID = newSessionID
+                throwRemote:FireServer(0, newSessionID)
                 task.wait(0.00001)
-                minigameStarted:FireServer(sessionID)
-                local reelStart = tick()
-                task.wait(0.035)
+                minigameStarted:FireServer(newSessionID)
+                task.wait(0.00001)
                 local successArgs = {
-                    ["duration"] = tick() - reelStart,
+                    ["duration"] = math.random(7.5, 12.5),
                     ["result"] = "SUCCESS",
                     ["insideRatio"] = 0.8 + (math.random(3, 18) / 100),
                     ["catchType"] = "SECRET",
                     ["isSecret"] = true
                 }
-                reelFinished:FireServer(successArgs, sessionID)
+                task.wait(successArgs.duration)
+                reelFinished:FireServer(successArgs, newSessionID)
                 fishCaught = fishCaught + 1
                 if getgenv().AutoSell and getgenv().SellMode == "Count" and fishCaught >= getgenv().SellValue then
                     if sellRemote then sellRemote:FireServer(800) end
@@ -166,7 +169,6 @@ MainTab:CreateToggle({
 	"bd4238ec-6bbc-4523-8c63-a17356e1f130"
 }
 game:GetService("ReplicatedStorage"):WaitForChild("FishUI"):WaitForChild("ToServer"):WaitForChild("ToggleFavorite"):FireServer(unpack(args))
-            game:GetService("ReplicatedStorage"):WaitForChild("BobberShop"):WaitForChild("ToServer"):WaitForChild("GetEquippedBobber"):InvokeServer()
             local backpackTool = player.Backpack:FindFirstChildOfClass("Tool")
             if backpackTool then backpackTool.Parent = player.Character end
         else

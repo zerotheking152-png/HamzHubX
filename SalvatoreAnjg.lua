@@ -1,4 +1,3 @@
-
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local UserInputService = game:GetService("UserInputService")
@@ -80,8 +79,8 @@ local function startBlati()
                 throwRemote:FireServer(0.017203017487190664, sessionID)
                 task.wait(0.00001)
                 minigameStarted:FireServer(sessionID)
-                local reelStart = tick() -- FIXED REEL DELAY
-                task.wait(0.03) -- delay kecil biar match update baru
+                local reelStart = tick()
+                task.wait(0.035)
                 local successArgs = {
                     duration = tick() - reelStart,
                     result = "SUCCESS",
@@ -132,8 +131,8 @@ local function startForceSecret()
                 throwRemote:FireServer(0, sessionID)
                 task.wait(0.00001)
                 minigameStarted:FireServer(sessionID)
-                local reelStart = tick() -- FIXED REEL DELAY
-                task.wait(0.03) -- delay kecil biar match update baru
+                local reelStart = tick()
+                task.wait(0.035)
                 local successArgs = {
                     ["duration"] = tick() - reelStart,
                     ["result"] = "SUCCESS",
@@ -167,6 +166,7 @@ MainTab:CreateToggle({
 	"bd4238ec-6bbc-4523-8c63-a17356e1f130"
 }
 game:GetService("ReplicatedStorage"):WaitForChild("FishUI"):WaitForChild("ToServer"):WaitForChild("ToggleFavorite"):FireServer(unpack(args))
+            game:GetService("ReplicatedStorage"):WaitForChild("BobberShop"):WaitForChild("ToServer"):WaitForChild("GetEquippedBobber"):InvokeServer()
             local backpackTool = player.Backpack:FindFirstChildOfClass("Tool")
             if backpackTool then backpackTool.Parent = player.Character end
         else

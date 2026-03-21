@@ -74,7 +74,7 @@ local function startBlati()
     if blatiLoop then return end
     blatiLoop = task.spawn(function()
         while getgenv().Blati do
-            if sessionID and humanoid then
+            if humanoid then
                 sessionID = game:GetService("HttpService"):GenerateGUID(false)
                 throwRemote:FireServer(0.017203017487190664, sessionID)
                 task.wait(0.00001)
@@ -126,7 +126,7 @@ local function startForceSecret()
     if forceSecretLoop then return end
     forceSecretLoop = task.spawn(function()
         while getgenv().ForceSecret do
-            if sessionID and humanoid then
+            if humanoid then
                 sessionID = game:GetService("HttpService"):GenerateGUID(false)
                 throwRemote:FireServer(0, sessionID)
                 task.wait(0.00001)

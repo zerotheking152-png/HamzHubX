@@ -1,3 +1,4 @@
+
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local UserInputService = game:GetService("UserInputService")
@@ -77,25 +78,24 @@ local function startBlati()
             if sessionID and humanoid then
                 sessionID = game:GetService("HttpService"):GenerateGUID(false)
                 throwRemote:FireServer(0.017203017487190664, sessionID)
-                task.wait(0.05)  -- kecil biar bait masuk dulu
+                task.wait(0.00001)
                 minigameStarted:FireServer(sessionID)
-                task.wait(0.05)
+                local reelStart = tick() -- FIXED REEL DELAY
+                task.wait(0.03) -- delay kecil biar match update baru
                 local successArgs = {
-                    duration = math.random(5, 8)/10,  -- 0.5-0.8 detik, cukup buat skip visual tapi server accept
+                    duration = tick() - reelStart,
                     result = "SUCCESS",
                     insideRatio = 0.8
                 }
-                task.wait(successArgs.duration)
                 reelFinished:FireServer(successArgs, sessionID)
-                task.wait(0.1)  -- delay kecil setelah reel biar server reset state, bisa lempar lagi langsung
                 fishCaught = fishCaught + 1
                 if getgenv().AutoSell and getgenv().SellMode == "Count" and fishCaught >= getgenv().SellValue then
                     if sellRemote then sellRemote:FireServer(800) end
                     fishCaught = 0
                 end
-                task.wait(0.05)
+                task.wait(0.00001)
             else
-                task.wait(0.1)
+                task.wait(0.00001)
             end
         end
     end)
@@ -130,27 +130,26 @@ local function startForceSecret()
             if sessionID and humanoid then
                 sessionID = game:GetService("HttpService"):GenerateGUID(false)
                 throwRemote:FireServer(0, sessionID)
-                task.wait(0.05)
+                task.wait(0.00001)
                 minigameStarted:FireServer(sessionID)
-                task.wait(0.05)
+                local reelStart = tick() -- FIXED REEL DELAY
+                task.wait(0.03) -- delay kecil biar match update baru
                 local successArgs = {
-                    ["duration"] = math.random(5, 10)/10,  -- 0.5-1 detik random biar natural
+                    ["duration"] = tick() - reelStart,
                     ["result"] = "SUCCESS",
                     ["insideRatio"] = 0.8 + (math.random(3, 18) / 100),
                     ["catchType"] = "SECRET",
                     ["isSecret"] = true
                 }
-                task.wait(successArgs.duration)
                 reelFinished:FireServer(successArgs, sessionID)
-                task.wait(0.1)  -- reset state
                 fishCaught = fishCaught + 1
                 if getgenv().AutoSell and getgenv().SellMode == "Count" and fishCaught >= getgenv().SellValue then
                     if sellRemote then sellRemote:FireServer(800) end
                     fishCaught = 0
                 end
-                task.wait(0.05)
+                task.wait(0.00001)
             else
-                task.wait(0.1)
+                task.wait(0.00001)
             end
         end
     end)

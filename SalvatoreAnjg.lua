@@ -77,24 +77,25 @@ local function startBlati()
             if sessionID and humanoid then
                 sessionID = game:GetService("HttpService"):GenerateGUID(false)
                 throwRemote:FireServer(0.017203017487190664, sessionID)
-                task.wait(0.00001)
+                task.wait(0.05)  -- kecil biar bait masuk dulu
                 minigameStarted:FireServer(sessionID)
-                task.wait(0.00001)
+                task.wait(0.05)
                 local successArgs = {
-                    duration = 0.01,
+                    duration = math.random(5, 8)/10,  -- 0.5-0.8 detik, cukup buat skip visual tapi server accept
                     result = "SUCCESS",
                     insideRatio = 0.8
                 }
                 task.wait(successArgs.duration)
                 reelFinished:FireServer(successArgs, sessionID)
+                task.wait(0.1)  -- delay kecil setelah reel biar server reset state, bisa lempar lagi langsung
                 fishCaught = fishCaught + 1
                 if getgenv().AutoSell and getgenv().SellMode == "Count" and fishCaught >= getgenv().SellValue then
                     if sellRemote then sellRemote:FireServer(800) end
                     fishCaught = 0
                 end
-                task.wait(0.00001)
+                task.wait(0.05)
             else
-                task.wait(0.00001)
+                task.wait(0.1)
             end
         end
     end)
@@ -129,11 +130,11 @@ local function startForceSecret()
             if sessionID and humanoid then
                 sessionID = game:GetService("HttpService"):GenerateGUID(false)
                 throwRemote:FireServer(0, sessionID)
-                task.wait(0.00001)
+                task.wait(0.05)
                 minigameStarted:FireServer(sessionID)
-                task.wait(0.00001)
+                task.wait(0.05)
                 local successArgs = {
-                    ["duration"] = math.random(0.01, 0.05),
+                    ["duration"] = math.random(5, 10)/10,  -- 0.5-1 detik random biar natural
                     ["result"] = "SUCCESS",
                     ["insideRatio"] = 0.8 + (math.random(3, 18) / 100),
                     ["catchType"] = "SECRET",
@@ -141,14 +142,15 @@ local function startForceSecret()
                 }
                 task.wait(successArgs.duration)
                 reelFinished:FireServer(successArgs, sessionID)
+                task.wait(0.1)  -- reset state
                 fishCaught = fishCaught + 1
                 if getgenv().AutoSell and getgenv().SellMode == "Count" and fishCaught >= getgenv().SellValue then
                     if sellRemote then sellRemote:FireServer(800) end
                     fishCaught = 0
                 end
-                task.wait(0.00001)
+                task.wait(0.05)
             else
-                task.wait(0.00001)
+                task.wait(0.1)
             end
         end
     end)

@@ -81,7 +81,7 @@ local function startBlati()
                 minigameStarted:FireServer(sessionID)
                 task.wait(0.00001)
                 local successArgs = {
-                    duration = 2.2980389329604805,
+                    duration = 0.01,
                     result = "SUCCESS",
                     insideRatio = 0.8
                 }
@@ -133,7 +133,7 @@ local function startForceSecret()
                 minigameStarted:FireServer(sessionID)
                 task.wait(0.00001)
                 local successArgs = {
-                    ["duration"] = math.random(7.5, 12.5),
+                    ["duration"] = math.random(0.01, 0.05),
                     ["result"] = "SUCCESS",
                     ["insideRatio"] = 0.8 + (math.random(3, 18) / 100),
                     ["catchType"] = "SECRET",

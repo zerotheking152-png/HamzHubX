@@ -78,6 +78,11 @@ local function startBlati()
             if humanoid then
                 local newSessionID = HttpService:GenerateGUID(false)
                 sessionID = newSessionID
+                
+                -- REMOTE INI PENTING BUAT INSTANT CAST (BOBBER SYNC TIAP CAST)
+                game:GetService("ReplicatedStorage"):WaitForChild("BobberShop"):WaitForChild("ToServer"):WaitForChild("GetEquippedBobber"):InvokeServer()
+                task.wait(0.00001)
+                
                 throwRemote:FireServer(0.017203017487190664, newSessionID)
                 task.wait(0.00001)
                 minigameStarted:FireServer(newSessionID)
@@ -131,6 +136,11 @@ local function startForceSecret()
             if humanoid then
                 local newSessionID = HttpService:GenerateGUID(false)
                 sessionID = newSessionID
+                
+                -- REMOTE INI PENTING BUAT INSTANT CAST (BOBBER SYNC TIAP CAST)
+                game:GetService("ReplicatedStorage"):WaitForChild("BobberShop"):WaitForChild("ToServer"):WaitForChild("GetEquippedBobber"):InvokeServer()
+                task.wait(0.00001)
+                
                 throwRemote:FireServer(0, newSessionID)
                 task.wait(0.00001)
                 minigameStarted:FireServer(newSessionID)
